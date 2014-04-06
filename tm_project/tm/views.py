@@ -1,11 +1,10 @@
 from django.core import serializers
-from tm.models import *
+from models import *
 # Needed to manually create HttpResponses or raise an Http404 exception
 from django.http import HttpResponse, Http404
 # Helper function to guess a MIME type from a file name
 from mimetypes import guess_type
-from django.shortcuts import render, redirect, get_object_or_404
-
+from django.shortcuts import get_object_or_404
 
 
 def home(request):
@@ -42,11 +41,13 @@ def show_thumbnail(request):
 
 def get_event_list(request):
     if request.GET.get('label'):
-        labels = request.GET.get('label')
-        events = Event.objects.filter(label=labels)
-    elif request.user is not None:
-        labels = UserLabels.objects.filter(user=request.user)
-        events = Event.objects.filter(label=labels)
+        label = request.GET.get('label')
+        label_object = Labels.objects.filter(label=label)
+        events = Event.objects.filter(label=label_object)
+    #elif request.user.is_authenticated():
+    #    labels = UserLabels.objects.filter(user=request.user)
+    #    label_object = Labels.objects.filter(label=labels)
+    #    events = Event.objects.filter(label=label_object)
     else:
         events = Event.objects.all()
     data = serializers.serialize('json', events)
