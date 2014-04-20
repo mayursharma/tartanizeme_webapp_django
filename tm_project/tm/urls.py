@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     url(r'^getphoto', 'tm.views.get_photo'),
     url(r'^showevent', 'tm.views.show_event'),
     url(r'^getcomments', 'tm.views.get_comments'),
+    url(r'^getlabels', 'tm.views.get_labels'),
     
 
 

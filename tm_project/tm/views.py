@@ -69,8 +69,10 @@ def get_comments(request):
     return HttpResponse(data, mimetype='application/json')
 
 
-
-
+def get_labels(request):
+    labels = Labels.objects.all()
+    data = serializers.serialize('json', labels)
+    return HttpResponse(data, mimetype='application/json')
 
 
 
