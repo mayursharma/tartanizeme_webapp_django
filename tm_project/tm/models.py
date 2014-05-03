@@ -17,6 +17,7 @@ class Event(models.Model):
     startTime = models.CharField(max_length=160)
     label = models.ManyToManyField(Labels)
     first_photo = models.ImageField(upload_to="pm-photos", blank=True)
+    like = models.CharField(max_length=3)
 
     def __unicode__(self):
         return self.name
@@ -30,12 +31,12 @@ class Photos(models.Model):
         return self.event.name + " photos"
 
 
-class Comments(models.Model):
-    event = models.ForeignKey(Event)
-    user = models.ForeignKey(User)
-    comment = models.CharField(max_length=160)
-    def __unicode__(self):
-        return self.event.name+self.comment
+# class Comments(models.Model):
+#     event = models.ForeignKey(Event)
+#     user = models.ForeignKey(User)
+#     comment = models.CharField(max_length=160)
+#     def __unicode__(self):
+#         return self.event.name+self.comment
 
 
 class UserLabels (models.Model):
@@ -44,7 +45,3 @@ class UserLabels (models.Model):
 
     def __unicode__(self):
         return self.user.first_name + self.label
-
-
-
-
